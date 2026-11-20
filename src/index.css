@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: #1C1917;
+    background-color: #FAF9F6;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ICONHOMZ + Lodha Inspired Flat Editorial Surfaces (Zero image effects or heavy glass glows) */
+.glass-ambient-canvas {
+  background-color: #FAF9F6;
+}
+
+.glass-surface {
+  background-color: #FFFFFF;
+  border: 1px solid #E7E5E4;
+}
+
+.glass-card-elevated {
+  background-color: #FFFFFF;
+  border: 1px solid #E7E5E4;
+}
+
+.glass-dark {
+  background-color: #0E3B4C;
+  border: 1px solid #1B4D61;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

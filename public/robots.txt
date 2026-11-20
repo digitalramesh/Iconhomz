@@ -1,0 +1,26 @@
+# ICONHOMZ Robots & AI Search Crawler Access Policy
+# Ensures public residential project, guide, and corporate pages remain discoverable
+
+User-agent: *
+Allow: /
+
+# Search Engines & AI Discovery Crawlers (GEO)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://www.iconhomz.com/sitemap.xml

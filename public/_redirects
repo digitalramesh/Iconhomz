@@ -1,0 +1,4 @@
+/residential/*          /projects/   301
+/residential-projects/* /projects/   301
+/locations/*            /projects/   301
+/*                      /index.html  200

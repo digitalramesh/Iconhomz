@@ -1,0 +1,145 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated user profile synchronized via Google Sign-In.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 160
+        },
+        "role": {
+          "type": "string",
+          "enum": ["member", "admin"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "displayName", "email", "role", "createdAt", "updatedAt"]
+    },
+    "LeadEnquiry": {
+      "title": "LeadEnquiry",
+      "description": "Residential project, general, or channel partner enquiry persisted for follow-up.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "enquiryType": {
+          "type": "string",
+          "enum": ["Project Enquiry", "General Enquiry", "Channel Partner Enquiry"]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "phone": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 24
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "interestedProject": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "propertyType": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "budgetRange": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "preferredLocation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "partnerCompany": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "utmSource": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "utmCampaign": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "status": {
+          "type": "string",
+          "enum": ["new", "contacted", "scheduled", "closed"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "enquiryType",
+        "name",
+        "phone",
+        "email",
+        "interestedProject",
+        "propertyType",
+        "budgetRange",
+        "preferredLocation",
+        "partnerCompany",
+        "message",
+        "utmSource",
+        "utmCampaign",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user account profiles keyed by Firebase Auth UID."
+    },
+    "/enquiries/{enquiryId}": {
+      "schema": { "$ref": "#/entities/LeadEnquiry" },
+      "description": "Persisted ICONHOMZ site-visit and advisory enquiries owned by userId or accessible by verified admins."
+    }
+  }
+}

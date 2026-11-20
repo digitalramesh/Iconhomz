@@ -1,0 +1,138 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global safety net: deny all unmatched paths by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return isVerifiedUser() && (
+        request.auth.token.email == 'ramesh@iconhomz.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isOwner(uid) {
+      return isVerifiedUser() && request.auth.uid == uid;
+    }
+
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['uid', 'displayName', 'email', 'role', 'createdAt', 'updatedAt']) &&
+        data.keys().hasOnly(['uid', 'displayName', 'email', 'role', 'createdAt', 'updatedAt']) &&
+        isValidId(data.uid) &&
+        data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 120 &&
+        data.email is string && data.email.size() >= 3 && data.email.size() <= 160 &&
+        data.role is string && data.role in ['member', 'admin'] &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    function isValidEnquiry(data) {
+      return data.keys().hasAll([
+          'userId', 'enquiryType', 'name', 'phone', 'email', 'interestedProject',
+          'propertyType', 'budgetRange', 'preferredLocation', 'partnerCompany',
+          'message', 'utmSource', 'utmCampaign', 'status', 'createdAt', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'userId', 'enquiryType', 'name', 'phone', 'email', 'interestedProject',
+          'propertyType', 'budgetRange', 'preferredLocation', 'partnerCompany',
+          'message', 'utmSource', 'utmCampaign', 'status', 'createdAt', 'updatedAt'
+        ]) &&
+        isValidId(data.userId) &&
+        data.enquiryType is string && data.enquiryType in ['Project Enquiry', 'General Enquiry', 'Channel Partner Enquiry'] &&
+        data.name is string && data.name.size() >= 2 && data.name.size() <= 120 &&
+        data.phone is string && data.phone.size() >= 8 && data.phone.size() <= 24 &&
+        data.email is string && data.email.size() <= 160 &&
+        data.interestedProject is string && data.interestedProject.size() >= 1 && data.interestedProject.size() <= 120 &&
+        data.propertyType is string && data.propertyType.size() >= 1 && data.propertyType.size() <= 60 &&
+        data.budgetRange is string && data.budgetRange.size() >= 1 && data.budgetRange.size() <= 60 &&
+        data.preferredLocation is string && data.preferredLocation.size() >= 1 && data.preferredLocation.size() <= 80 &&
+        data.partnerCompany is string && data.partnerCompany.size() <= 120 &&
+        data.message is string && data.message.size() <= 1000 &&
+        data.utmSource is string && data.utmSource.size() <= 80 &&
+        data.utmCampaign is string && data.utmCampaign.size() <= 80 &&
+        data.status is string && data.status in ['new', 'contacted', 'scheduled', 'closed'] &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    match /users/{userId} {
+      allow get: if isValidId(userId) && (isOwner(userId) || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isValidId(userId) &&
+        isOwner(userId) &&
+        isValidUserProfile(incoming()) &&
+        incoming().uid == request.auth.uid &&
+        (incoming().role == 'member' || isAdmin()) &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isValidId(userId) &&
+        isValidUserProfile(incoming()) &&
+        incoming().uid == existing().uid &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        (
+          isAdmin() ||
+          (
+            isOwner(userId) &&
+            incoming().role == existing().role &&
+            incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'email', 'updatedAt'])
+          )
+        );
+      allow delete: if isValidId(userId) && isAdmin();
+    }
+
+    match /enquiries/{enquiryId} {
+      allow get: if isValidId(enquiryId) && (isAdmin() || (isVerifiedUser() && existing().userId == request.auth.uid));
+      allow list: if isAdmin() || (isVerifiedUser() && resource.data.userId == request.auth.uid);
+      allow create: if isValidId(enquiryId) &&
+        isVerifiedUser() &&
+        isValidEnquiry(incoming()) &&
+        incoming().userId == request.auth.uid &&
+        incoming().status == 'new' &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isValidId(enquiryId) &&
+        isVerifiedUser() &&
+        isValidEnquiry(incoming()) &&
+        incoming().userId == existing().userId &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        (
+          (
+            isAdmin() &&
+            incoming().diff(existing()).affectedKeys().hasOnly(['status', 'message', 'updatedAt'])
+          ) ||
+          (
+            existing().userId == request.auth.uid &&
+            existing().status != 'closed' &&
+            incoming().status == existing().status &&
+            incoming().diff(existing()).affectedKeys().hasOnly(['message', 'preferredLocation', 'budgetRange', 'updatedAt'])
+          )
+        );
+      allow delete: if isValidId(enquiryId) && isAdmin();
+    }
+  }
+}
