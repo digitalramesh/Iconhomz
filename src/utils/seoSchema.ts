@@ -88,6 +88,29 @@ function buildOrganizationSchema(origin: string) {
   };
 }
 
+function normalizeSeoTitle(rawTitle: string): string {
+  const clean = rawTitle.replace(/\s+/g, ' ').trim();
+  if (clean.length <= 60) return clean;
+  const withoutBrand = clean.replace(/\s*[\-|–]\s*ICONHOMZ(\s+Blog)?$/i, '').trim();
+  const suffix = ' | ICONHOMZ';
+  const maxBody = 60 - suffix.length;
+  if (withoutBrand.length <= maxBody) {
+    return `${withoutBrand}${suffix}`;
+  }
+  const clipped = withoutBrand.slice(0, maxBody - 1).replace(/\s+\S*$/, '').trim();
+  return `${clipped}${suffix}`;
+}
+
+function normalizeSeoDescription(rawDescription: string): string {
+  let clean = rawDescription.replace(/\s+/g, ' ').trim();
+  if (clean.length < 120) {
+    clean = `${clean.replace(/\.$/, '')}. Schedule a site visit with ICONHOMZ in Bangalore today.`;
+  }
+  if (clean.length <= 160) return clean;
+  const clipped = clean.slice(0, 157).replace(/\s+\S*$/, '').trim();
+  return `${clipped}...`;
+}
+
 export function applyRouteSeoAndSchema({
   currentPath,
   matchedProjectDetail,
@@ -100,10 +123,11 @@ export function applyRouteSeoAndSchema({
     typeof window !== 'undefined' && window.location.origin ? window.location.origin : CANONICAL_HOST;
   const canonicalUrl = `${runtimeOrigin}${currentPath}`;
 
-  let title = 'ICONHOMZ – Building Better Living Experiences | Bangalore Real Estate';
+  let title = 'ICONHOMZ – Villa Plots, Flats & Villas in Bangalore';
   let description =
-    'Discover thoughtfully planned villa plots, apartments, villas, and Fluid Homes in Bangalore by ICONHOMZ. Explore IVY COUNTY, ICON MICASA, GRAND ICON 3 & ICON LAURELS.';
+    'Explore BDA & RERA approved villa plots, Fluid Homes apartments, and gated villas in Bangalore by ICONHOMZ. Book a site visit at IVY COUNTY today.';
   let ogType = 'website';
+  let ogImage = `${runtimeOrigin}/src/assets/images/ivy_county_villa_plots_1795082010981.jpg`;
 
   const graph: Record<string, unknown>[] = [];
   const organization = buildOrganizationSchema(runtimeOrigin);
@@ -112,6 +136,7 @@ export function applyRouteSeoAndSchema({
     title = activeArticle.seoTitle;
     description = activeArticle.metaDescription;
     ogType = 'article';
+    ogImage = `${runtimeOrigin}${activeArticle.image}`;
 
     graph.push(
       organization,
@@ -160,8 +185,9 @@ export function applyRouteSeoAndSchema({
       url: canonicalUrl
     });
   } else if (matchedProjectDetail) {
-    title = `${matchedProjectDetail.name} – ${matchedProjectDetail.category} in ${matchedProjectDetail.corridor}, Bangalore | ICONHOMZ`;
+    title = `${matchedProjectDetail.name} – ${matchedProjectDetail.corridor} | ICONHOMZ`;
     description = matchedProjectDetail.summary;
+    ogImage = `${runtimeOrigin}${matchedProjectDetail.image}`;
 
     const propertyType =
       matchedProjectDetail.category === 'Apartments'
@@ -184,7 +210,7 @@ export function applyRouteSeoAndSchema({
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: `${runtimeOrigin}/` },
-          { '@type': 'ListItem', position: 2, name: 'Residential Projects', item: `${runtimeOrigin}/residential/` },
+          { '@type': 'ListItem', position: 2, name: 'Projects', item: `${runtimeOrigin}/projects/` },
           { '@type': 'ListItem', position: 3, name: matchedProjectDetail.name, item: canonicalUrl }
         ]
       },
@@ -415,15 +441,20 @@ export function applyRouteSeoAndSchema({
     );
   }
 
-  document.title = title;
+  const finalTitle = normalizeSeoTitle(title);
+  const finalDescription = normalizeSeoDescription(description);
+
+  document.title = finalTitle;
   upsertCanonical(canonicalUrl);
-  upsertMetaTag('name', 'description', description);
+  upsertMetaTag('name', 'description', finalDescription);
   upsertMetaTag('name', 'robots', isNotFound ? 'noindex, follow' : 'index, follow');
   upsertMetaTag('property', 'og:type', ogType);
-  upsertMetaTag('property', 'og:title', title);
-  upsertMetaTag('property', 'og:description', description);
+  upsertMetaTag('property', 'og:title', finalTitle);
+  upsertMetaTag('property', 'og:description', finalDescription);
   upsertMetaTag('property', 'og:url', canonicalUrl);
-  upsertMetaTag('name', 'twitter:title', title);
-  upsertMetaTag('name', 'twitter:description', description);
+  upsertMetaTag('property', 'og:image', ogImage);
+  upsertMetaTag('name', 'twitter:title', finalTitle);
+  upsertMetaTag('name', 'twitter:description', finalDescription);
+  upsertMetaTag('name', 'twitter:image', ogImage);
   upsertStructuredData(graph);
 }

@@ -85,10 +85,9 @@ export function FloatingProjectsShowcase({ onNavigate }: FloatingProjectsShowcas
       </div>
 
       <div className="px-6 py-4 border-t border-[#E7E5E4] flex items-center justify-between text-xs">
-        <span className="font-medium text-[#1C1917] truncate">{project.approvals}</span>
-        <span className="inline-flex items-center gap-1 font-semibold text-[#D96B27] shrink-0">
-          <span>Explore</span>
-          <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+        <span className="inline-flex items-center gap-1.5 font-semibold text-[#0E3B4C]">
+          <span>Explore Project</span>
+          <ArrowRight className="w-3.5 h-3.5 text-[#D96B27]" aria-hidden="true" />
         </span>
       </div>
     </a>

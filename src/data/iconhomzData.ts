@@ -281,9 +281,9 @@ export const PROJECT_ARCHIVE_ROUTES: Record<string, ProjectRouteMeta> = {
   '/projects/': {
     path: '/projects/',
     breadcrumbLabel: 'All Projects',
-    seoTitle: 'Residential Projects in Bangalore by ICONHOMZ | Plots, Apartments & Villas',
+    seoTitle: 'Projects in Bangalore | Plots, Flats & Villas – ICONHOMZ',
     metaDescription:
-      'Explore ongoing, upcoming, and completed residential projects in Bangalore by ICONHOMZ including BDA-approved villa plots in Gunjur, apartments, and villas.',
+      'Browse ongoing, completed, and upcoming residential projects by ICONHOMZ in Bangalore. Explore BDA villa plots, apartments, and villas today.',
     h1: 'Residential Projects in Bangalore by ICONHOMZ',
     kicker: 'ICONHOMZ Project Portfolio',
     intro:
@@ -294,7 +294,7 @@ export const PROJECT_ARCHIVE_ROUTES: Record<string, ProjectRouteMeta> = {
     breadcrumbLabel: 'Ongoing Projects',
     seoTitle: 'Ongoing Residential Projects in Bangalore | ICONHOMZ',
     metaDescription:
-      'Explore ongoing BDA & RERA-registered projects in Bangalore by ICONHOMZ: IVY COUNTY in Gunjur, ICON MICASA, GRAND ICON 3, and ICONEST 4.',
+      'Explore ongoing BDA & RERA approved residential projects in Bangalore by ICONHOMZ: IVY COUNTY in Gunjur, ICON MICASA, GRAND ICON 3 & ICONEST 4.',
     h1: 'Ongoing Residential Projects in Bangalore by ICONHOMZ',
     kicker: 'Active Developments',
     intro:
@@ -306,7 +306,7 @@ export const PROJECT_ARCHIVE_ROUTES: Record<string, ProjectRouteMeta> = {
     breadcrumbLabel: 'Upcoming Projects',
     seoTitle: 'Upcoming Residential Projects in Bangalore | ICONHOMZ',
     metaDescription:
-      'Preview upcoming villa and residential launches in Bangalore by ICONHOMZ. Register for priority architectural briefings and early release disclosures.',
+      'Preview upcoming villa and residential launches in Bangalore by ICONHOMZ. Register early for architectural briefings and priority release updates.',
     h1: 'Upcoming Residential Projects in Bangalore by ICONHOMZ',
     kicker: 'Priority Releases',
     intro:
@@ -316,9 +316,9 @@ export const PROJECT_ARCHIVE_ROUTES: Record<string, ProjectRouteMeta> = {
   '/projects/completed/': {
     path: '/projects/completed/',
     breadcrumbLabel: 'Completed Projects',
-    seoTitle: 'Completed Residential Projects in Bangalore | ICONHOMZ Track Record',
+    seoTitle: 'Completed Projects in Bangalore | ICONHOMZ Track Record',
     metaDescription:
-      'Review completed residential apartments and villas delivered by ICONHOMZ in Bangalore including ICON SANCTUARY and ICONEST 5.',
+      'Review delivered residential apartments and villas by ICONHOMZ in Bangalore including ICON SANCTUARY, ICONEST 5, ICONEST 3, and GRAND ICON 2.',
     h1: 'Completed Residential Projects in Bangalore by ICONHOMZ',
     kicker: 'Delivered Communities',
     intro:
@@ -1380,9 +1380,9 @@ export const BLOG_ARCHIVE_ROUTES: Record<string, BlogRouteMeta> = {
   '/blogs/': {
     path: '/blogs/',
     breadcrumbLabel: 'All Blogs',
-    seoTitle: 'Bangalore Real Estate Blog & Home Buying Guides | ICONHOMZ',
+    seoTitle: 'Bangalore Real Estate Blog & Buyer Guides | ICONHOMZ',
     metaDescription:
-      'Editorial buyer research on BDA vs BMRDA approvals, villa plot investment, Vastu guidelines, East & South Bangalore corridors, and gated community living.',
+      'Read Bangalore real estate guides on BDA vs BMRDA approvals, villa plot investment, Vastu directions, and gated community living by ICONHOMZ.',
     h1: 'ICONHOMZ Blog & Research Guides',
     intro:
       'Editorially reviewed, answer-first guides engineered for homebuyers and investors evaluating BDA/RERA approvals, Bangalore micro-markets, and space-efficient Fluid Homes.'
@@ -1390,9 +1390,9 @@ export const BLOG_ARCHIVE_ROUTES: Record<string, BlogRouteMeta> = {
   '/blogs/real-estate/': {
     path: '/blogs/real-estate/',
     breadcrumbLabel: 'Real Estate',
-    seoTitle: 'Bangalore Real Estate Market & Developer Guides | ICONHOMZ Blog',
+    seoTitle: 'Bangalore Real Estate & Developer Blog | ICONHOMZ',
     metaDescription:
-      'Fact-checked guidance on evaluating real estate developers, booking checklists, and residential market trends across Bengaluru.',
+      'Read practical guides on evaluating real estate developers, Bangalore market trends, and pre-booking checks by the ICONHOMZ advisory team.',
     h1: 'Bangalore Real Estate Market & Developer Research',
     intro:
       'Objective frameworks to evaluate residential developers, track market fundamentals, and complete pre-booking due diligence across Bengaluru.'
@@ -1400,9 +1400,9 @@ export const BLOG_ARCHIVE_ROUTES: Record<string, BlogRouteMeta> = {
   '/blogs/property-investment/': {
     path: '/blogs/property-investment/',
     breadcrumbLabel: 'Property Investment',
-    seoTitle: 'Property Investment in Bangalore – Plots vs Apartments & Financing | ICONHOMZ Blog',
+    seoTitle: 'Bangalore Property Investment & Loan Blog | ICONHOMZ',
     metaDescription:
-      'Analyze villa plot appreciation, plot vs apartment trade-offs, and home loan vs plot loan rules across East and South Bengaluru.',
+      'Compare villa plots vs apartments, property appreciation factors, and home loan vs plot loan options across Bangalore with ICONHOMZ guides.',
     h1: 'Property Investment & Financing Research in Bangalore',
     intro:
       'Data-backed perspectives on long-term land equity, appreciation drivers, and structured plot vs. apartment financing options.'
@@ -1410,9 +1410,9 @@ export const BLOG_ARCHIVE_ROUTES: Record<string, BlogRouteMeta> = {
   '/blogs/vastu/': {
     path: '/blogs/vastu/',
     breadcrumbLabel: 'Vastu',
-    seoTitle: 'Vastu Tips for Residential Plots & Plot Directions | ICONHOMZ Blog',
+    seoTitle: 'Vastu Guide for Residential Plots | ICONHOMZ Blog',
     metaDescription:
-      'Practical Vastu guidelines for selecting North, East, and West-facing residential villa plots and optimizing natural daylight in Bangalore.',
+      'Explore Vastu tips for selecting North, East, and West-facing residential plots, plot proportions, and daylight planning in Bangalore by ICONHOMZ.',
     h1: 'Vastu & Architectural Orientation Guides',
     intro:
       'Practical orientation, daylighting, and plot-selection guidance grounded in architectural usability and traditional Vastu principles.'
@@ -1420,9 +1420,9 @@ export const BLOG_ARCHIVE_ROUTES: Record<string, BlogRouteMeta> = {
   '/blogs/home-buying-guides/': {
     path: '/blogs/home-buying-guides/',
     breadcrumbLabel: 'Home Buying Guides',
-    seoTitle: 'Home Buying Guides – BDA, BMRDA, RERA & Legal Checklists | ICONHOMZ Blog',
+    seoTitle: 'Home Buying Checklists – BDA & RERA | ICONHOMZ Blog',
     metaDescription:
-      'Step-by-step buyer checklists covering BDA vs BMRDA vs BBMP plot approvals, Encumbrance Certificates, and RERA registration verification.',
+      'Step-by-step home buying checklists covering BDA vs BMRDA vs BBMP plot approvals, Karnataka RERA checks, and legal title documents in Bangalore.',
     h1: 'Bangalore Home Buying & Legal Approval Guides',
     intro:
       'Verification checklists covering planning authority sanctions (BDA, BMRDA, BBMP), Karnataka RERA filings, and title documentation before purchase.'
@@ -1430,9 +1430,9 @@ export const BLOG_ARCHIVE_ROUTES: Record<string, BlogRouteMeta> = {
   '/blogs/bangalore-real-estate/': {
     path: '/blogs/bangalore-real-estate/',
     breadcrumbLabel: 'Bangalore Real Estate',
-    seoTitle: 'Bangalore Micro-Market Guides – Gunjur, Sarjapur Road & Electronic City | ICONHOMZ Blog',
+    seoTitle: 'Bangalore Corridors Blog – Gunjur & More | ICONHOMZ',
     metaDescription:
-      'Corridor deep dives comparing Gunjur vs Varthur, Sarjapur Road residential demand, Whitefield connectivity, and Bommasandra Yellow Line Metro.',
+      'Explore East and South Bangalore real estate corridor guides comparing Gunjur vs Varthur, Sarjapur Road, Whitefield ITPL, and Bommasandra Metro.',
     h1: 'Bangalore Micro-Market & Location Guides',
     intro:
       'On-the-ground corridor analysis spanning Gunjur, Varthur, Sarjapur Road, Whitefield, and the Bommasandra–Electronic City Metro belt.'
@@ -1440,9 +1440,9 @@ export const BLOG_ARCHIVE_ROUTES: Record<string, BlogRouteMeta> = {
   '/blogs/lifestyle/': {
     path: '/blogs/lifestyle/',
     breadcrumbLabel: 'Lifestyle',
-    seoTitle: 'Gated Community Living & Clubhouse Amenities | ICONHOMZ Blog',
+    seoTitle: 'Gated Community & Clubhouse Living | ICONHOMZ Blog',
     metaDescription:
-      'Explore why 50-acre gated plot communities, expansive clubhouses, and Conscious Living Fluid Homes elevate everyday urban wellbeing.',
+      'Learn how gated community plots, landscaped parks, and clubhouses enhance family safety, wellness, and long-term home value in Bangalore.',
     h1: 'Conscious Living & Gated Community Lifestyle',
     intro:
       'Perspectives on low-density gated neighborhoods, multi-generational clubhouse amenities, and adaptable Fluid Home interiors.'
